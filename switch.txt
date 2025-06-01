@@ -1,0 +1,80 @@
+﻿config t
+   hostname EDGE-1111
+   enable secret pass
+   service password-encryption
+   no logging console
+   no ip domain-lookup
+   line console 0
+     password pass
+     login
+     exec-timeout 0 0
+    line vty 0 14
+      password pass
+      login
+      exec-timeout 0 0
+   Int Gi 0/0/0
+     description FIBEROPTIC-TO-SWITCH
+     ip add 10.11.11.1 255.255.255.0
+	 no shutdown
+   Int Gi 0/0/1
+     description PLDT-ME-WAN
+	 ip add 200.0.0.11 255.255.255.0
+	 no shutdown
+   Int Loopback 0
+     description VIRTUALIP-FOR-ROUTING
+	 ip add 11.0.0.1 255.255.255.255
+ end
+
+OPEN SHORTEST PATH FIRST/OSPF CONFIG.
+@EDGE:
+siib: sh ip int brief
+sirc: sh ip route connected
+@EDGE:
+config t
+router ospf 1
+router-id 11.0.0.1
+network 200.0.0.0  0.0.0.255 area 0
+network 10.11.11.0  0.0.0.255 area 0
+network 11.0.0.1  0.0.0.0 area 0
+Interface gi 0/0/0
+ ip ospf network point-to-point
+end
+
+
+
+
+
+
+create vlan/svi/dhcp,pool          
+
+
+
+
+
+
+
+
+
+
+STATIC ROUTE FOR NETWORK ENGINEERS:
+R4: 10.1.1.4 /30 AND  10.1.1.0 /30 1ST HOP: 10.1.1.9
+conf t
+ip route 10.1.1.4 255.255.255.252 10.1.1.9 1
+ip route 10.1.1.0 255.255.255.252 10.1.1.9 1
+
+R1: 
+conf t
+ip route 10.1.1.4 255.255.255.252 10.1.1.2 1
+ip route 10.1.1.8 255.255.255.252 10.1.1.2 1
+
+
+R2:
+conf t
+ip route 10.1.1.8 255.255.255.252 10.1.1.6 1
+
+R3: 
+conf t
+ip route 10.1.1.0 255.255.255.252 10.1.1.5 1
+
+
+
