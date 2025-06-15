@@ -1,5 +1,5 @@
 ﻿config t
-   hostname COREbaba-12
+   hostname COREbaba-11
    enable secret pass
    service password-encryption
    no logging console
