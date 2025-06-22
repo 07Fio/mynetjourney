@@ -436,7 +436,7 @@ end
 config t
 router ospf 1
 router-id 10.11.11.4
-network 10._.0.0  0.0.255.255 area 0
+network 10.11.0.0  0.0.255.255 area 0
 int gi 0/1
  ip ospf network point-to-point
 end
@@ -444,8 +444,8 @@ end
 !@ospf routing CUCM:
 config t
 router ospf 1
-router-id 10.__.100.8
-network 10._.100.0  0.0.0.255  area 0
+router-id 10.11.100.8
+network 10.11.100.0  0.0.0.255  area 0
 end
 
 ************** Trunking and Etherchannel **************
